@@ -3,7 +3,7 @@ import torch
 import numpy as np
 import progressbar as pb
 
-sys.path.append("/home/shenzhonghai/dmo-captcha")
+sys.path.append("/home/shenzhonghai/water-meter-number")
 from init import DataReader
 from model.resnet.resnet import resnet50
 from torch.utils.data import DataLoader
@@ -37,7 +37,7 @@ model.load_state_dict({k.replace('module.', ''): v for k, v in torch.load(modelP
 model.eval()  # DropOut/BN
 arc = ArcFace(2048 * 7 * 7, data.type).to(device)
 arc.load_state_dict({k.replace('module.', ''): v for k, v in torch.load(modelPath)['arc'].items()})
-print('Calculating Feature Map...')-
+print('Calculating Feature Map...')
 ids = 0
 Total = (data.sample - 1) / batch_size + 1
 pgb = pb.ProgressBar(widgets=widgets, maxval=Total).start()

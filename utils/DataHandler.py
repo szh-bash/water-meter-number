@@ -47,11 +47,13 @@ class Augment:
             img = img[:, ::-1, :]
         return img
 
+    def trans(self, img):
+        pass
+
     def run(self, img, label):
-        img = self.cutout(img)
+        # img = cv2.resize(img, (H, W))
+        # img = self.cutout(img)
         img = self.resize(img)
-        # img = self.rotate(img)
-        # img = self.flip(img)
         img = self.crop(img)
         img = np.transpose(img, [2, 0, 1])
         img = (img - 127.5) / 128.0

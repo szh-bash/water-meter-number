@@ -6,11 +6,6 @@ from torch.utils.data import Dataset
 import progressbar as pb
 from utils.DataHandler import Augment, MaxS, MinS
 from config import trainPath, widgets, testPath, train_size, test_size, H, W
-from utils.cut import num
-# lfw: 5749, 13233
-# webface: 10575, 494414
-# clean-webface: 10575, 455594
-# dmo-captcha: 65, 4122
 
 
 aug = Augment()
@@ -44,13 +39,14 @@ class DataReader(Dataset):
                     self.dataset.append(cv2.imread(son))
                 elif self.st == 'test':
                     self.dataset.append(cv2.imread(son))
-                self.label.append(num[ord(allDir)])
+                self.label.append(int(allDir))
                 pgb.update(self.sample)
                 self.sample += 1
             self.type += 1
         pgb.finish()
         print('Processing Method:', self.st)
         if self.st == 'train':
+            # print(len(self.dataset))
             self.dataset = np.array(self.dataset, dtype=float)
         elif self.st == 'test':
             self.dataset = np.array(self.dataset, dtype=float)

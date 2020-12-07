@@ -1,24 +1,30 @@
 # Configurations
+
 import progressbar as pb
 
+dataPath = '/data/shenzhonghai'
+dataProject = '/data/shenzhonghai/water-meter-number'
+
 # build data
-train_origin_path = '/data/shenzhonghai/dmo-captcha/train-origin'
-trainPath = '/data/shenzhonghai/dmo-captcha/dmo-captcha-part1-high'
-train_size = 8598
+label_path = dataPath+'/data/train_labels/labels'
 
-test_origin_path = '/data/shenzhonghai/dmo-captcha/test-origin'
-testPath = '/data/shenzhonghai/dmo-captcha/dmo-captcha-part0'
-test_size = 4122
+train_origin_path = dataPath+'/data/crop_train'
+trainPath = dataProject+'/data/part0'
+train_size = 5266
 
-modelSavePath = '/data/shenzhonghai/dmo-captcha/models/resnet_36_56_m30_co_high'
-modelPath = '/data/shenzhonghai/dmo-captcha/models/resnet_36_56_m30_co_clean6.tar'
+test_origin_path = dataPath+'/data/crop_test'
+testPath = dataProject+'/data/part1'
+test_size = 0
+
+modelSavePath = dataProject+'/models/demo'
+modelPath = dataProject + '/models/demo.tar'
 
 H = 112
 W = 112
 
 # train
 Total = 150
-batch_size = 128
+batch_size = 64
 learning_rate = 0.001
 weight_decay = 0.00000
 dp = 0.00

@@ -1,1 +1,1 @@
-CUDA_VISIBLE_DEVICES="1,3,6,2,8,0" python -u train.py | tee /data/shenzhonghai/dmo-captcha/logs/resnet_36_56_m30_co_high.log
+CUDA_VISIBLE_DEVICES="9" python -u train.py | tee /data/shenzhonghai/water-meter-number/logs/demo.log
