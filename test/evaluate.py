@@ -10,7 +10,6 @@ from torch.utils.data import DataLoader
 from loss import ArcMarginProduct as ArcFace
 
 from config import modelPath, widgets
-from utils.cut import trans
 
 
 feats = []
@@ -37,6 +36,7 @@ model.load_state_dict({k.replace('module.', ''): v for k, v in torch.load(modelP
 model.eval()  # DropOut/BN
 arc = ArcFace(2048 * 7 * 7, data.type).to(device)
 arc.load_state_dict({k.replace('module.', ''): v for k, v in torch.load(modelPath)['arc'].items()})
+arc.eval()
 print('Calculating Feature Map...')
 ids = 0
 Total = (data.sample - 1) / batch_size + 1
@@ -53,5 +53,5 @@ index = np.arange(0, data.sample)
 index = index[pred != test_Y]
 print('Model:', modelPath)
 print('Test Accuracy:', np.sum(pred == test_Y)/Total)
-print([chr(trans[pred[x]]).upper() for x in index])
-print([chr(trans[test_Y[x]]).upper() for x in index])
+print([str(pred[x]) for x in index])
+print([str(test_Y[x]) for x in index])

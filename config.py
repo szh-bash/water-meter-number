@@ -14,7 +14,7 @@ train_size = 5266
 
 test_origin_path = dataPath+'/data/crop_test'
 testPath = dataProject+'/data/part1'
-test_size = 0
+test_size = 500
 
 modelSavePath = dataProject+'/models/demo'
 modelPath = dataProject + '/models/demo.tar'

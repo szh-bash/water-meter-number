@@ -35,21 +35,14 @@ class DataReader(Dataset):
             child_dir = os.listdir(child)
             for allSon in child_dir:
                 son = os.path.join('%s/%s' % (child, allSon))
-                if self.st == 'train':
-                    self.dataset.append(cv2.imread(son))
-                elif self.st == 'test':
-                    self.dataset.append(cv2.imread(son))
+                self.dataset.append(cv2.imread(son))
                 self.label.append(int(allDir))
                 pgb.update(self.sample)
                 self.sample += 1
             self.type += 1
         pgb.finish()
         print('Processing Method:', self.st)
-        if self.st == 'train':
-            # print(len(self.dataset))
-            self.dataset = np.array(self.dataset, dtype=float)
-        elif self.st == 'test':
-            self.dataset = np.array(self.dataset, dtype=float)
+        self.dataset = np.array(self.dataset, dtype=float)
         self.label = np.array(self.label)
         print('Types:', self.type)
         print('Label:', self.label.shape)
