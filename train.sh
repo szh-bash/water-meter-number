@@ -1,1 +1,1 @@
-CUDA_VISIBLE_DEVICES="9" python -u train.py | tee /data/shenzhonghai/water-meter-number/logs/demo.log
+CUDA_VISIBLE_DEVICES="8,9" python -u train.py | tee /data/shenzhonghai/water-meter-number/logs/s32_m04_bs128.log

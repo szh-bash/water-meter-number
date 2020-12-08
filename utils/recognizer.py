@@ -10,7 +10,7 @@ import numpy as np
 import pandas as pd
 
 from model.resnet.resnet import resnet50
-from config import modelPath, test_origin_path
+from config import dataProject, modelPath, test_origin_path, modelName
 
 
 H = 112
@@ -72,4 +72,4 @@ if __name__ == '__main__':
         pred.append(prd)
     pred = np.array(pred)
     dt = pd.DataFrame(pred)
-    dt.to_csv('demo.csv', header=False, index=False)
+    dt.to_csv(dataProject+'/result/'+modelName+'_ep156.csv', header=False, index=False)
