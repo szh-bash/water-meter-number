@@ -16,7 +16,7 @@ test_origin_path = dataPath+'/data/crop_test'
 testPath = dataProject+'/data/part1'
 test_size = 500
 
-modelName = 's32_m04_bs128'
+modelName = 's32_m04_bs128_fast'
 modelSavePath = dataProject + '/models/' + modelName
 modelPath = dataProject + '/models/' + modelName + '.tar'
 
@@ -24,7 +24,7 @@ H = 112
 W = 112
 
 # train
-Total = 200
+Total = 72
 batch_size = 128
 learning_rate = 0.001
 weight_decay = 0.00000

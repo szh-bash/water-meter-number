@@ -19,7 +19,8 @@ def smooth(seq):
 
 # log_path = '/data/shenzhonghai/water-meter-number/logs/demo.log'
 # log_path = '/data/shenzhonghai/water-meter-number/logs/s32_m05_bs128.log'
-log_path = '/data/shenzhonghai/water-meter-number/logs/s32_m04_bs128.log'
+# log_path = '/data/shenzhonghai/water-meter-number/logs/s32_m04_bs128_retry.log'
+log_path = '/data/shenzhonghai/water-meter-number/logs/s32_m04_bs128_fast.log'
 acc = []
 loss = []
 with open(log_path, 'r') as f:

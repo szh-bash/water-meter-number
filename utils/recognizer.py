@@ -10,7 +10,7 @@ import numpy as np
 import pandas as pd
 
 from model.resnet.resnet import resnet50
-from config import dataProject, modelPath, test_origin_path, modelName
+from config import dataProject, modelPath, test_origin_path, modelName, modelSavePath
 
 
 H = 112
@@ -42,7 +42,7 @@ def predict(filepath):
     for idx in range(5):
         image = img[:, int(dw*idx):int(dw*(idx+1)), :]
         image = cv2.resize(image, (size, size))
-        image = image[st:st+MinS, st:st+MinS, :]
+        image = image[st:st+H, st:st+W, :]
         image = (np.transpose(image, [2, 0, 1])-127.5)/128
         image = torch.from_numpy(np.array([image])).float().cuda()
         feat = arc(net(image))
@@ -54,13 +54,15 @@ def predict(filepath):
 
 if __name__ == '__main__':
     timer = time.time()
+    epoch = "_ep34"
+    checkpoint = torch.load(modelSavePath+epoch+'.tar', map_location='cpu')
     net = resnet50().cuda()
     net.load_state_dict(
-        {k.replace('module.', ''): v for k, v in torch.load(modelPath, map_location='cpu')['net'].items()})
+        {k.replace('module.', ''): v for k, v in checkpoint['net'].items()})
     net.eval()
     arc = ArcMarginProduct(2048 * 7 * 7, classes).cuda()
     arc.load_state_dict(
-        {k.replace('module.', ''): v for k, v in torch.load(modelPath, map_location='cpu')['arc'].items()})
+        {k.replace('module.', ''): v for k, v in checkpoint['arc'].items()})
     arc.eval()
     print('Load time:', time.time() - timer)
 
@@ -72,4 +74,6 @@ if __name__ == '__main__':
         pred.append(prd)
     pred = np.array(pred)
     dt = pd.DataFrame(pred)
-    dt.to_csv(dataProject+'/result/'+modelName+'_ep156.csv', header=False, index=False)
+    dt.to_csv(dataProject+'/result/'+modelName+epoch+'.csv', header=False, index=False)
+    print('Train acc: %.5f' % checkpoint['acc'])
+# 41 42

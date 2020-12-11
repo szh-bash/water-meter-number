@@ -40,6 +40,7 @@ if __name__ == '__main__':
     data = DataReader('train')
     slides = (data.sample - 1) // batch_size + 1
     grads = {}
+    acc_max = 0
 
     # Some Args setting
     # net = Vgg16()
@@ -56,7 +57,7 @@ if __name__ == '__main__':
     optimizer = optim.Adam([{'params': net.parameters()},
                             {'params': arcFace.parameters()}],
                            lr=learning_rate, weight_decay=weight_decay)
-    scheduler = optim.lr_scheduler.MultiStepLR(optimizer, milestones=[4000, 7200], gamma=0.1, last_epoch=-1)
+    scheduler = optim.lr_scheduler.MultiStepLR(optimizer, milestones=[2000, 2800], gamma=0.1, last_epoch=-1)
     print(net.parameters())
     print(arcFace.parameters())
     if os.path.exists(modelSavePath+'.tar'):
@@ -152,6 +153,9 @@ if __name__ == '__main__':
                  'loss': loss_bc,
                  'acc': acc_bc}
         torch.save(state, modelSavePath+'.tar')
+        if acc_bc > acc_max:
+            acc_max = acc_bc
+            torch.save(state, modelSavePath+'_ep'+str(epoch)+'.tar')
         print('Model saved to %s' % (modelSavePath+'.tar'))
         # if acc_bc > 99.99:
         #     break
